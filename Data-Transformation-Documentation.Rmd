@@ -1,0 +1,79 @@
+---
+title: "Data Transformation Documentation"
+author: "Vaishnavi Behl"
+date: "AT 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### Function Documentation
+
+This document explains how to use the calculate_mean_sepal_length function with the Iris dataset. It provides details about the function, its parameters, and usage.
+
+
+## Function Overview 
+
+The calculate_mean_sepal_length function calculates the mean sepal length for a specific species of iris flowers in the "iris" dataset.
+
+```{r}
+# Load the "iris" dataset
+data(iris)
+
+# Function to calculate mean sepal length for a specific species
+calculate_mean_sepal_length <- function(species) {
+  subset_data <- iris[iris$Species == species, ]
+  return(mean(subset_data$Sepal.Length))
+}
+
+```
+
+## Function Usage 
+
+To use the function, call it with the species argument to specify the iris species you are interested in:
+
+```{r}
+# Calculate the mean sepal length for the setosa species
+calculate_mean_sepal_length(species = "setosa")
+
+# Calculate the mean sepal length for the virginica species
+calculate_mean_sepal_length(species = "virginica")
+
+```
+
+## Updated Function
+
+An updated version of the function is provided below. It now allows you to specify the number of observations to consider. If n is provided, the function calculates the mean sepal length for the specified number of observations. If n is not provided, it calculates the mean sepal length for all observations of the specified species.
+
+```{r}
+
+# Updated function to calculate mean sepal length for a specific species and number of observations
+
+calculate_mean_sepal_length <- function(species, n = NULL) {
+  subset_data <- subset(iris, Species == species)
+  
+  if (!is.null(n)) {
+    subset_data <- subset_data[1:min(n, nrow(subset_data)), ]
+  }
+  
+  return(mean(subset_data$Sepal.Length))
+}
+```
+
+## Demonstrating the usage of the updated function
+
+You can now specify the number of observations to consider when calculating the mean sepal length. For example, to calculate the mean sepal length for the first 3 observations of setosa:
+
+```{r}
+
+calculate_mean_sepal_length(species = "setosa", n = 3)
+
+```
+
+## Appendix: All code in this assignment
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+
+```
